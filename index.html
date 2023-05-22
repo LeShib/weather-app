@@ -4,17 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="script.js"></script>
-    <title>Document</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script defer src="assets/js/script.js"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Weather app</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Weather App</h1>
-        <form id="weatherForm">
-            <input type="text" id="cityInput" placeholder="Enter city name">
-            <button type="submit">Submit</button>
+    <h1>Weather App</h1>
+    <div class="container"></div>
+        <form id="weatherForm" class="weatherForm">
+            <label id="cityLabel" class="cityLabel">Enter a city name or several but separated by a comma :</label><br>
+            <input type="text" id="cityInput" class="cityInput">
+            <button type="submit" class="submitBtn">Submit</button>
         </form>
-        <div id="weatherData"></div>
+        <div id="weatherData" class="weatherData"></div>
     </div>
 </body>
 </html>
