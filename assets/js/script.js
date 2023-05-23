@@ -35,11 +35,13 @@ function displayWeather(city, lat, lon) {
             let labels = [];
             let j = 0;
 
-            for (let i = 0; i < 40; i+=8){
-                let temperature = dataArray[i].main.temp;
+            for (let i = 0; i < 40; i += 8) {
+                let temperatures = dataArray.slice(i, i + 8).map(item => item.main.temp);
+                let maxTemperature = Math.max(...temperatures);
+                let minTemperature = Math.min(...temperatures);
                 let dateTime = dataArray[i].dt_txt;
 
-                temperatureData.push(temperature);
+                temperatureData.push({ min: minTemperature, max: maxTemperature });
                 labels.push(dateTime);
 
                 let icon = dataArray[i].weather[0].icon;
@@ -48,7 +50,8 @@ function displayWeather(city, lat, lon) {
                 weatherDiv.innerHTML = `Day ${j}:<br>
                 Weather: ${dataArray[i].weather[0].main} - ${dataArray[i].weather[0].description}<br> 
                 <img src="https://openweathermap.org/img/wn/${icon}@2x.png"><br>
-                Mean temperature: ${temperature}°C<br>
+                Minimum temperature: ${minTemperature}°C<br>
+                Maximum temperature: ${maxTemperature}°C<br>
                 Humidity: ${dataArray[i].main.humidity}%<br>
                 Pressure: ${dataArray[i].main.pressure}Pa<br>
                 <hr>`
@@ -70,10 +73,17 @@ function createChart(city, temperatureData, labels) {
         data: {
             labels: labels,
             datasets: [{
-                label: 'Temperature (°C)',
-                data: temperatureData,
+                label: 'Minimum Temperature (°C)',
+                data: temperatureData.map(item => item.min),
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            },
+            {
+                label: 'Maximum Temperature (°C)',
+                data: temperatureData.map(item => item.max),
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1
             }]
         },
@@ -88,3 +98,7 @@ function createChart(city, temperatureData, labels) {
 }
 
 weatherForm.addEventListener('submit', getCity);
+
+
+// Comparer chaque jour la température max et la température min 
+// Mise en forme de l'affichage 
