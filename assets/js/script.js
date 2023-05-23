@@ -28,36 +28,63 @@ function displayWeather(city, lat, lon) {
             console.log(data);
             let dataArray = data.list;
             let cityDiv = document.createElement('div');
-            cityDiv.innerHTML = `<h3>${city}</h3>`;
+            cityDiv.innerHTML = `<h3>${data.city.name}</h3>`;
             weatherData.appendChild(cityDiv);
+
+            let fullDate = new Date();
+            let date0 = fullDate.getFullYear() + "-0" + (fullDate.getMonth()+1) + "-" + fullDate.getDate();
+            let date1 = fullDate.getFullYear() + "-0" + (fullDate.getMonth()+1) + "-" + (fullDate.getDate()+1);
+            let date2 = fullDate.getFullYear() + "-0" + (fullDate.getMonth()+1) + "-" + (fullDate.getDate()+2);
+            let date3 = fullDate.getFullYear() + "-0" + (fullDate.getMonth()+1) + "-" + (fullDate.getDate()+3);
+            let date4 = fullDate.getFullYear() + "-0" + (fullDate.getMonth()+1) + "-" + (fullDate.getDate()+4);
+            let fiveDaysDates = [];
+            fiveDaysDates.push(date0, date1, date2, date3, date4);
+            console.log(fiveDaysDates);
+            let temperatureByDay = [];
+            let maxTemp = dataArray[0].main.temp_max;
+            let minTemp = dataArray[0].main.temp_min;
+
+            fiveDaysDates.forEach(day => {
+                dataArray.forEach(element => {
+                    let fullDates = element.dt_txt;
+                    let date = fullDates.split(' ');
+                    if(date[0] === day){
+                        if(element.main.temp_max >= maxTemp){
+                            maxTemp = element.main.temp_max;
+                        }
+                        if(element.main.temp_min <= minTemp){
+                            minTemp = element.main.temp_min;
+                        }
+                    }
+                });
+                temperatureByDay.push({date: day, min: minTemp, max: maxTemp});
+                minTemp = 100;
+                maxTemp = -100;
+            });
+            console.log(temperatureByDay);
 
             let temperatureData = [];
             let labels = [];
             let j = 0;
 
-            for (let i = 0; i < 40; i += 8) {
-                let temperatures = dataArray.slice(i, i + 8).map(item => item.main.temp);
-                let maxTemperature = Math.max(...temperatures);
-                let minTemperature = Math.min(...temperatures);
-                let dateTime = dataArray[i].dt_txt;
-
-                temperatureData.push({ min: minTemperature, max: maxTemperature });
-                labels.push(dateTime);
+            for (let i = 0; i < dataArray.length; i += 8) {
+                temperatureData.push({ min: temperatureByDay[j].min, max: temperatureByDay[j].max });
+                labels.push(temperatureByDay[j].date);
 
                 let icon = dataArray[i].weather[0].icon;
                 let weatherDiv = document.createElement('div');
-                j++;
-                weatherDiv.innerHTML = `Day ${j}:<br>
-                Weather: ${dataArray[i].weather[0].main} - ${dataArray[i].weather[0].description}<br> 
+                weatherDiv.setAttribute("class", "dayCard");
+                weatherDiv.innerHTML = `${temperatureByDay[j].date}:<br>
                 <img src="https://openweathermap.org/img/wn/${icon}@2x.png"><br>
-                Minimum temperature: ${minTemperature}°C<br>
-                Maximum temperature: ${maxTemperature}°C<br>
+                Weather: ${dataArray[i].weather[0].description}<br> 
+                Temperature min: ${temperatureByDay[j].min}°C<br>
+                Temperature max: ${temperatureByDay[j].max}°C<br>
                 Humidity: ${dataArray[i].main.humidity}%<br>
                 Pressure: ${dataArray[i].main.pressure}Pa<br>
-                <hr>`
+                Wind speed: ${dataArray[i].wind.speed}Km/h`
+                j++
                 cityDiv.appendChild(weatherDiv);
             }
-
             createChart(city, temperatureData, labels);
         })
 }

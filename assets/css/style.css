@@ -1,3 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap");
 body {
   background-color: lightgrey;
+  text-align: center;
+  font-family: "Roboto Mono", monospace;
+}
+body .weatherForm {
+  background-color: cadetblue;
+  border: 1px solid black;
+  padding: 15px;
+}
+body .submitBtn {
+  background-color: lightcoral;
+  border-radius: 20px;
+}
+body .cityInput {
+  background-color: lightgrey;
+  border-radius: 20px;
+  border-color: darkgreen;
+}
+body .dayCard {
+  border: 2px solid black;
+  border-radius: 20px;
+  background-color: cadetblue;
+  margin-bottom: 10px;
+  padding: 10px;
 }
