@@ -187,11 +187,12 @@ function getCity(event) {
     event.preventDefault();
     let cities = cityInput.value.split(",");
     cities.forEach(city => getWeatherData(city.trim()));
+    cityInput.value = "";
 }
 
 // Récupération des informations à propos de la(des) ville(s) choisie(s)
 async function getWeatherData(city) {
-    let dataFetch = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`)
+    let dataFetch = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`)
     let data = await dataFetch.json();
     let latitude = data[0].lat;
     let longitude = data[0].lon;
@@ -206,6 +207,7 @@ function displayWeather(city, lat, lon) {
             console.log(data);
             let dataArray = data.list;
             let cityDiv = document.createElement('div');
+            cityDiv.setAttribute("class", "cityCard");
             cityDiv.innerHTML = `<h3>${data.city.name}</h3>`;
             weatherData.appendChild(cityDiv);
 
@@ -244,7 +246,7 @@ function displayWeather(city, lat, lon) {
             let labels = [];
             let j = 0;
 
-            for (let i = 0; i < dataArray.length; i += 8) {
+            for (let i = 0; i < dataArray.length; i += 8){
                 temperatureData.push({ min: temperatureByDay[j].min, max: temperatureByDay[j].max });
                 labels.push(temperatureByDay[j].date);
 
@@ -252,13 +254,14 @@ function displayWeather(city, lat, lon) {
                 let weatherDiv = document.createElement('div');
                 weatherDiv.setAttribute("class", "dayCard");
                 weatherDiv.innerHTML = `${temperatureByDay[j].date}:<br>
-                <img src="https://openweathermap.org/img/wn/${icon}@2x.png"><br>
+                <img src="https://openweathermap.org/img/wn/${icon}@2x.png" class="icon"><br>
                 Weather: ${dataArray[i].weather[0].description}<br> 
-                Temperatures : ${temperatureByDay[j].min}°C  -   ${temperatureByDay[j].max}°C<br>
+                Temperature min: ${temperatureByDay[j].min}°C<br>
+                Temperature max: ${temperatureByDay[j].max}°C<br>
                 Humidity: ${dataArray[i].main.humidity}%<br>
                 Pressure: ${dataArray[i].main.pressure}Pa<br>
-                Wind speed: ${dataArray[i].wind.speed}Km/h`
-                j++
+                Wind speed: ${dataArray[i].wind.speed}Km/h`;
+                j++;
                 cityDiv.appendChild(weatherDiv);
             }
             createChart(city, temperatureData, labels);

@@ -1,13 +1,36 @@
+@import './vendors/reset';
+@import './utils/mixins';
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap');
+
 body{
-    background-color: lightgrey;
+    background-color: rgb(250, 255, 160);
     text-align: center;
     font-family: 'Roboto Mono', monospace;
+    h1{
+        margin-top: 5px;
+        font-size: 25px;
+        text-decoration: underline;
+    }
+    h3{
+        font-size: 20px;
+        text-decoration: underline;
+    }
     .weatherForm{
-        background-color: cadetblue;
+        background-color: rgb(85, 195, 200);
         border: 2px solid black;
-        padding: 15px;
+        padding: 10px;
         border-radius: 20px;
+        margin: 20px;
+        .cityInput{
+            background-color: lightgrey;
+            border-radius: 20px;
+            border-color: black;
+            margin-top: 10px;
+        }
+        .submitBtn{
+            background-color: rgb(255, 170, 170);
+            border-radius: 20px;
+        }
         .autocomplete{
             width: 200px;
             position: relative;
@@ -40,20 +63,19 @@ body{
             color: #ffffff;
         }
     }
-    .submitBtn{
-        background-color: lightcoral;
-        border-radius: 20px;
-    }
-    .cityInput{
-        background-color: lightgrey;
-        border-radius: 20px;
-        border-color: black;
-    }
     .dayCard{
         border: 2px solid black;
         border-radius: 20px;
-        background-color: cadetblue;
+        background-color: rgb(85, 195, 200);
         margin-bottom: 10px;
         padding: 10px;
+        margin: 20px;
+        .icon{
+            border: 1px solid gray;
+            border-radius: 100%;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            background-color: rgb(255, 170, 170);
+        }
     }
 }
