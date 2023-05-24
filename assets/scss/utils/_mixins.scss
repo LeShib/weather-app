@@ -1,6 +1,7 @@
 //Mixin pour la média-queries de la version desktop
 @mixin responsive-desktop {
     @media screen and (min-width : 800px){
+        @content;
         .weatherData{
             display: grid;
             grid-template-columns: 1fr 1fr;
