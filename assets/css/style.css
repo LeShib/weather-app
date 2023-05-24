@@ -6,8 +6,40 @@ body {
 }
 body .weatherForm {
   background-color: cadetblue;
-  border: 1px solid black;
+  border: 2px solid black;
   padding: 15px;
+  border-radius: 20px;
+}
+body .weatherForm .autocomplete {
+  width: 200px;
+  position: relative;
+  display: inline-block;
+}
+body .weatherForm .autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+body .weatherForm .autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+body .weatherForm .autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+body .weatherForm .autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
 }
 body .submitBtn {
   background-color: lightcoral;
@@ -16,7 +48,7 @@ body .submitBtn {
 body .cityInput {
   background-color: lightgrey;
   border-radius: 20px;
-  border-color: darkgreen;
+  border-color: black;
 }
 body .dayCard {
   border: 2px solid black;

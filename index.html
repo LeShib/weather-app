@@ -12,9 +12,11 @@
 <body>
     <h1>Weather App</h1>
     <div class="container"></div>
-        <form id="weatherForm" class="weatherForm">
+        <form id="weatherForm" class="weatherForm" autocomplete="off">
             <label id="cityLabel" class="cityLabel">Enter a city name or several but separated by a comma :</label><br>
-            <input type="text" id="cityInput" class="cityInput">
+            <div class="autocomplete" style="width:300px;">            
+                <input type="text" id="cityInput" class="cityInput">
+            </div>
             <button type="submit" class="submitBtn">Submit</button>
         </form>
         <div id="weatherData" class="weatherData"></div>
