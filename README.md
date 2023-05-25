@@ -14,7 +14,7 @@ An application presenting weather information such as temperatures, humidity, wi
 ## Rendu et lien
 
 ---
-https://leshib.github.io/weather-app/ (lien non-fonctionnel)
+https://leshib.github.io/weather-app/ 
 
 <a href="https://becode.org"><img src="https://img.shields.io/badge/Project-BeCode-blue?style=for-the-badge&logo=appveyor" alt="Badge Project" style="margin-right:10px;">
 </a>
